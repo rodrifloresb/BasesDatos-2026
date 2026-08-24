@@ -64,8 +64,28 @@ create table continent (
 
 -- 5 
 
-INSERT INTO `continent` VALUES ('Africa', 30370000, 20.4, `Cairo` , 608)
-INSERT INTO `continent` VALUES (`Antarctica`, 14000000, 9.2, `) -- no existe como ciudad
--- 6 
+INSERT INTO `continent` VALUES ('Africa', 30370000, 20.4, 'Cairo' , 608);
 
---    FOREIGN KEY (Continent) REFERENCES Continent (Name)
+INSERT INTO `city` VALUES (4080, 'McMurdo Station', 'ATA', 'Ross Dependency', 1000);
+INSERT INTO `continent` VALUES ('Antarctica', 14000000, 9.2, 'McMurdo Station', 4080);
+
+INSERT INTO `city` VALUES (4081, 'Mumbai', 'IND', 'Maharashtra', 12442373);
+INSERT INTO `continent` VALUES ('Asia', 44579000, 29.5, 'Mumbai', 4081);
+
+INSERT INTO `city` VALUES (4082, 'Instanbul', 'TUR', 'Istanbul', 15848000);
+INSERT INTO `continent` VALUES ('Europe', 10180000, 6.8, 'Instanbul', 4082);
+
+INSERT INTO `continent` VALUES ('North America', 24709000, 16.5, 'Mexico', 864);
+
+INSERT INTO `continent` VALUES ('Oceania', 8600000, 5.9, 'Sydney', 130);
+
+INSERT INTO `continent` VALUES ('South America', 17840000, 12.0, 'So Paulo', 206);
+
+-- 6 
+-- DESC table; Te permite ver el esquema.
+
+ALTER TABLE country ADD FOREIGN KEY (Continent) REFERENCES continent (Name);
+
+-- PARTE 2 DML
+
+-- 1. 
