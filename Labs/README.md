@@ -26,3 +26,12 @@ docker exec -it database mysql -u root -p
 > [!TIP]
 > [Doc MySQL](https://dev.mysql.com/doc/refman/8.0/en/create-table.html)
 
+
+
+## MAKEFILE: 
+  - up : levante contenedor.
+  - stop : detener contenedor.
+  - clean : eliminar el contenedor.
+  - shell : Conecta con la consola.
+  - logs : muestra de logs.
+

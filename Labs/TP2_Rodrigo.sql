@@ -89,3 +89,37 @@ ALTER TABLE country ADD FOREIGN KEY (Continent) REFERENCES continent (Name);
 -- PARTE 2 DML
 
 -- 1. 
+SELECT Name, Region FROM country ORDER BY Name ASC;
+
+-- 2.
+SELECT Name, Population FROM city ORDER BY Population DESC LIMIT 10;
+
+-- 3.
+SELECT Name, Region, SurfaceArea, GovernmentForm FROM country ORDER BY SurfaceArea ASC LIMIT 10;
+
+-- 4.
+SELECT Name FROM country WHERE IndepYear IS NULL;
+
+-- 5.
+    SELECT c.Name, cl.Language, cl.Percentage
+    FROM country c
+    JOIN countrylanguage cl ON c.Code = CountryCode
+    WHERE cl.IsOfficial = 'T';
+
+-- 6.
+UPDATE countrylanguage SET Percentage = 100.0 WHERE CountryCode = 'AIA';
+
+-- 7.
+SELECT * FROM city WHERE District = 'Crdoba';
+
+-- 8.
+DELETE FROM city WHERE District = 'Crdoba' AND CountryCode != 'ARG';
+
+-- 9.
+SELECT Name, HeadOfState FROM country WHERE HeadOfState LIKE  '%John%';
+
+-- 10.
+    SELECT Name, Population 
+    FROM country 
+    WHERE Population > 35000000 AND Population < 45000000 
+    ORDER BY Population DESC;
