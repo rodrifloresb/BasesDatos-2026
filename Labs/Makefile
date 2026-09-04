@@ -4,6 +4,7 @@
 up:
 	docker run -d \
 		--name database \
+		--restart=unless-stopped \
 		-e MYSQL_ROOT_PASSWORD=pass \
 		-e MYSQL_DATABASE=demo \
 		-p 3306:3306 \
