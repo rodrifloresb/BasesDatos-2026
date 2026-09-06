@@ -63,6 +63,7 @@ create table continent (
 
 
 -- 5 
+select ID from city where Name like '%Paulo'
 
 INSERT INTO `continent` VALUES ('Africa', 30370000, 20.4, 'Cairo' , 608);
 
