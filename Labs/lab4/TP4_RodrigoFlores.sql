@@ -45,8 +45,20 @@ WHERE countrylanguage.Percentage > (
 );
 
 -- 5
-SELECT country.Region, country.Population, country.SurfaceArea
+SELECT country.Region, country.Name, country.Population, country.SurfaceArea
 FROM country
+JOIN city
+ON city.CountryCode = country.Code
 WHERE country.SurfaceArea < 1000
-AND country.Population > 10000
-ORDER BY country.Region;
+AND city.Population > 100000;
+
+-- 6
+SELECT c.Name, city.Name, city.Population
+FROM country AS c
+JOIN city
+ON city.CountryCode = c.Code
+WHERE city.Population = (
+    SELECT max(Population)
+    FROM city
+    WHERE city.CountryCode = c.Code
+);
