@@ -2,6 +2,8 @@
 -- 1 
 create database world;
 
+use world;
+
 -- 2
 create table country (
     Code VARCHAR(255) PRIMARY KEY,
@@ -63,7 +65,7 @@ create table continent (
 
 
 -- 5 
-select ID from city where Name like '%Paulo'
+select ID from city where Name like '%Paulo';
 
 INSERT INTO `continent` VALUES ('Africa', 30370000, 20.4, 'Cairo' , 608);
 

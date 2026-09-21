@@ -57,18 +57,18 @@ LIMIT 10
 
 -- 7
 (
-SELECT country.Name, countrylanguage.Language
+SELECT country.Name
 FROM country
 JOIN countrylanguage
 ON countrylanguage.CountryCode = country.Code
-AND countrylanguage.IsOfficial = "T"
+WHERE countrylanguage.IsOfficial = "T"
 AND countrylanguage.Language = "English" 
-) UNION (
-SELECT country.Name, countrylanguage.Language
+) INTERSECT (
+SELECT country.Name
 FROM country
 JOIN countrylanguage
 ON countrylanguage.CountryCode = country.Code
-AND countrylanguage.IsOfficial = "T"
+WHERE countrylanguage.IsOfficial = "T"
 AND countrylanguage.Language = "French" 
 );
 
@@ -101,7 +101,7 @@ AND country.Name = 'Argentina';
 SELECT city.Name, country.Name 
 FROM city 
 INNER JOIN country 
-ON city.CountryCode = country.Code 
+ON city.CountryCode = country.Code
 WHERE country.Name = 'Argentina'; 
 
 /*

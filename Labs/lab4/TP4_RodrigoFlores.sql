@@ -62,3 +62,28 @@ WHERE city.Population = (
     FROM city
     WHERE city.CountryCode = c.Code
 );
+
+-- 7 (No termino de entender que pide exactamente).
+
+-- 8
+SELECT con.Name, SUM(country.Population) AS TotalPopulation
+FROM continent AS con
+JOIN country ON country.Continent = con.Name
+GROUP BY con.Name
+ORDER BY TotalPopulation DESC;
+
+-- 9
+SELECT con.Name, AVG(country.LifeExpectancy) AS AvgLife
+FROM continent AS con
+JOIN country ON country.Continent = con.Name
+GROUP BY con.Name
+HAVING AvgLife > 40 AND AvgLife < 70
+ORDER BY AvgLife DESC;
+
+-- 10
+SELECT con.Name AS Continente, MAX(country.Population) AS Maxima, MIN(country.Population) AS Minima,
+        AVG(country.Population) AS Promedio, SUM(country.Population) AS Suma
+FROM continent AS con
+JOIN country ON country.Continent = con.Name
+GROUP BY con.Name
+ORDER BY con.Name ASC;
