@@ -92,36 +92,71 @@ ALTER TABLE country ADD FOREIGN KEY (Continent) REFERENCES continent (Name);
 -- PARTE 2 DML
 
 -- 1. 
+/*
+ Devuelva una lista de los nombres y las regiones 
+ a las que pertenece cada país ordenada alfabéticamente.
+*/
 SELECT Name, Region FROM country ORDER BY Name ASC;
 
 -- 2.
+/*
+Liste el nombre y la población de las 10 ciudades 
+más pobladas del mundo.
+*/
 SELECT Name, Population FROM city ORDER BY Population DESC LIMIT 10;
 
 -- 3.
+/*
+Liste el nombre, región, superficie y forma de gobierno de los 
+10 países con menor superficie
+*/
 SELECT Name, Region, SurfaceArea, GovernmentForm FROM country ORDER BY SurfaceArea ASC LIMIT 10;
 
--- 4.
+-- 4. Liste todos los países que no tienen independencia
 SELECT Name FROM country WHERE IndepYear IS NULL;
 
 -- 5.
+/*
+Liste el nombre y el porcentaje de hablantes que 
+tienen todos los idiomas declarados oficiales
+*/
     SELECT c.Name, cl.Language, cl.Percentage
     FROM country c
     JOIN countrylanguage cl ON c.Code = CountryCode
     WHERE cl.IsOfficial = 'T';
 
--- 6.
+-- 6. 
+/*
+Actualizar el valor de porcentaje del idioma inglés 
+en el país con código 'AIA' a 100.0
+*/
 UPDATE countrylanguage SET Percentage = 100.0 WHERE CountryCode = 'AIA';
 
 -- 7.
+/*
+Listar las ciudades que pertenecen a Córdoba (District)
+ dentro de Argentina.
+*/
 SELECT * FROM city WHERE District = 'Crdoba';
 
 -- 8.
+/*
+Eliminar todas las ciudades que pertenezcan
+ a Córdoba fuera de Argentina.
+*/
 DELETE FROM city WHERE District = 'Crdoba' AND CountryCode != 'ARG';
 
 -- 9.
+/*
+Listar los países cuyo Jefe de Estado se llame John.
+*/
 SELECT Name, HeadOfState FROM country WHERE HeadOfState LIKE  '%John%';
 
 -- 10.
+/*
+Listar los países cuya población esté entre 35 M y 45 M 
+ordenados por población de forma descendente
+*/
     SELECT Name, Population 
     FROM country 
     WHERE Population > 35000000 AND Population < 45000000 
