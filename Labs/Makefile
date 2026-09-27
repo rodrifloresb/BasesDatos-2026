@@ -10,6 +10,10 @@ up:
 		-p 3306:3306 \
 		mysql:latest
 
+# Inicia el contenedor
+start:
+	docker start database
+
 # Detiene el contenedor
 stop:
 	docker stop database
@@ -26,4 +30,3 @@ shell:
 # Muestra los logs en tiempo real
 logs:
 	docker logs -f database
-
