@@ -25,7 +25,8 @@ clean:
 
 # Conecta a la base de datos con la consola interactiva
 shell:
-	docker exec -it database mysql -u root -p
+	docker exec -it database mysql -u root -p pass
+
 
 # Muestra los logs en tiempo real
 logs:
