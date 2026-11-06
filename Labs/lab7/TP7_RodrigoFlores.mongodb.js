@@ -46,11 +46,22 @@ Listar ordenados por fecha. Escribir una nueva consulta (modificando la anterior
 responder ¿Cuántos comentarios recibió?
 */
 db.comments.find(
-    {$and:[{"movie_id": {$eq: ObjectId("573a1399f29313caabcee886")},
-    "date": {$gte: ISODate('2014-01-01T00:00:00.000Z'), $lte: ISODate('2016-12-31T24:00:00.000Z')}
-    }]},
-    {"name":1, "email":1, "text":1, "date":1 }
-).sort({date: 1})
+    {
+        $and:[{"movie_id": {$eq: ObjectId("573a1399f29313caabcee886")},
+        "date": {$gte: ISODate('2014-01-01T00:00:00.000Z'), $lte: ISODate('2016-12-31T24:00:00.000Z')}
+        }]
+    },
+    {
+        "name":1, 
+        "email":1, 
+        "text":1, 
+        "date":1 
+    }
+).sort(
+    {
+        date: 1
+    }
+)
 
 db.comments.countDocuments(
     {$and:[{"movie_id": {$eq: ObjectId("573a1399f29313caabcee886")},
@@ -155,6 +166,115 @@ respectivamente.
 
 db.comments.updateOne(
     {
-        
+         _id: ObjectId("5b72236520a3277c015b3b73")
+    },
+    {
+        $set: {text: "mi mejor comentario", date: new Date()}
+    }
+)
+
+// Ej 8
+/*
+Actualizar el valor de la contraseña del usuario cuyo email es
+joel.macdonel@fakegmail.com a "some password". La misma consulta debe poder
+insertar un nuevo usuario en caso que el usuario no exista. Ejecute la consulta dos veces.
+¿Qué operación se realiza en cada caso? (Hint: usar upserts).
+*/
+
+db.users.updateOne(
+    {
+        email: "joel.macdonel@fakegmail.com"
+    },
+    {
+        $set: {password: "some password"}
+    },
+    {
+        upsert: true
+    }
+)
+
+// Ej 9
+/*
+Remover todos los comentarios realizados por el usuario cuyo email es
+victor_patel@fakegmail.com durante el año 1980.
+*/
+
+db.comments.deleteMany(
+    {
+        email: "victor_patel@fakegmail.com",
+        date: {
+            $gte: ISODate("1980-01-01T00:00:00.000Z"),
+            $lt: ISODate("1981-01-01T00:00:00.000Z")
+        }
+    }
+)
+
+// Parte II
+
+// Ej 10
+/*
+Listar el id del restaurante (restaurant_id) y las calificaciones de los restaurantes donde al
+menos una de sus calificaciones haya sido realizada entre 2014 y 2015 inclusive, y que
+tenga una puntuación (score) mayor a 70 y menor o igual a 90.
+*/
+
+db.restaurants.find(
+    {
+        grades: {
+            $elemMatch: {
+                date: {
+                    $gte: ISODate("2014-01-01T00:00:00.000Z"),
+                    $lt: ISODate("2016-01-01T00:00:00.000Z")
+                },
+                score: { $gt: 70, $lte: 90 }
+            }
+        }
+    },
+    {
+        _id: 0,
+        restaurant_id: 1,
+        grades:1
+    }
+)
+
+
+// Ej 11
+/*
+Agregar dos nuevas calificaciones al restaurante cuyo id es "50018608". A continuación
+se especifican las calificaciones a agregar en una sola consulta.
+{
+"date" : ISODate("2019-10-10T00:00:00Z"),
+"grade" : "A",
+"score" : 18
+},
+{
+"date" : ISODate("2020-02-25T00:00:00Z"),
+"grade" : "A",
+"score" : 21
+}
+*/
+
+db.restaurants.updateOne(
+    {
+        restaurant_id: "50018608"
+    },
+    {
+        $addToSet: {
+            grades: {
+                $each: [
+                    {
+                        "date" : ISODate("2019-10-10T00:00:00Z"),
+                        "grade" : "A",
+                        "score" : 18
+                    },
+                    {
+                        "date" : ISODate("2020-02-25T00:00:00Z"),
+                        "grade" : "A",
+                        "score" : 21
+                    }
+                ]
+            }
+        }
+
     }
 )
